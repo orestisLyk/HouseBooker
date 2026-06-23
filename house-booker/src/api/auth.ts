@@ -1,4 +1,4 @@
-import type { LoginRequest, LoginResponse, RegisterRequest } from "../shared/types/auth";
+import type { AuthUser, JwtPayload, LoginRequest, LoginResponse, RegisterRequest } from "../shared/types/auth";
 import api from "./axios";
 
 export const login = async (request: LoginRequest): Promise<LoginResponse> => {
@@ -9,4 +9,15 @@ export const login = async (request: LoginRequest): Promise<LoginResponse> => {
 export const register = async (request: RegisterRequest): Promise<LoginResponse> => {
     const response = await api.post<LoginResponse>("/auth/register", request);
     return response.data;
+}
+
+export const toAuthUser = (data: JwtPayload): AuthUser => {
+    return {
+        id: parseInt(data["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]),
+        username: data["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+        email: data["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+        role: data["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+        ownerId: data.OwnerId ? parseInt(data.OwnerId) : undefined,
+        renterId: data.RenterId ? parseInt(data.RenterId) : undefined
+    }
 }
