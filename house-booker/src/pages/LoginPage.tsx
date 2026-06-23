@@ -1,6 +1,5 @@
-import type { AuthUser, JwtPayload, LoginRequest } from "../shared/types/auth";
+import type { LoginRequest, LoginResponse } from "../shared/types/auth";
 import { loginApi } from "../api/auth";
-import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 
@@ -21,7 +20,7 @@ const LoginPage = () => {
             password
         };
 
-        const token = await loginApi(credentials);
+        const token : LoginResponse = await loginApi(credentials);
 
         login(token.token);
 
