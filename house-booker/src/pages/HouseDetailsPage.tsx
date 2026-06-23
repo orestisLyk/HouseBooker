@@ -1,0 +1,34 @@
+import { useParams } from "react-router";
+import { getHouseById } from "../api/housesApi";
+import type { HouseReadOnly } from "../shared/types/house";
+import { useEffect, useState } from "react";
+
+const HouseDetailsPage = () => {
+
+    const id = useParams().id;
+    const [houseReadOnly, setHouseReadOnly] = useState<HouseReadOnly | null>(null);
+
+    useEffect(() => {
+        const fetchHouse = async () => {
+            const house = await getHouseById(id as string);
+            setHouseReadOnly(house);
+        };
+        fetchHouse();
+        console.log("Images:", houseReadOnly?.imageUrls);
+    }, [id]);
+
+    return (
+        <>
+            <h1 className="text-3xl font-bold mb-4">{houseReadOnly?.name}</h1>
+            <div className="mb-4">
+                {houseReadOnly?.imageUrls && houseReadOnly.imageUrls.length > 0 && houseReadOnly.imageUrls.map((url, index) => (
+                    <img key={index} src={url} alt={`${houseReadOnly.name} ${index + 1}`} className="w-full h-64 object-cover rounded mb-4" />
+                ))}
+            </div>
+            <p className="text-gray-600 mb-2">{houseReadOnly?.description}</p>
+            <p className="text-gray-600 mb-2">{houseReadOnly?.address}, {houseReadOnly?.region}</p>
+            <p className="text-gray-800 font-semibold">${houseReadOnly?.pricePerNight} per night</p>
+        </>
+    )
+}
+export default HouseDetailsPage;
