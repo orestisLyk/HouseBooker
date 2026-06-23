@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router";
-import { register } from "../api/auth";
+import { registerApi } from "../api/auth";
 import type { RegisterRequest } from "../shared/types/auth";
+import axios from "axios";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
 
-    const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const username = formData.get("username") as string;
@@ -24,9 +25,29 @@ const RegisterPage = () => {
             roleId
         };
 
-        register(registerRequest);
+        try {
+            const response: boolean = await registerApi(registerRequest);
 
-        navigate("/login", { replace: true });
+            if (!response) {
+                alert("Registration failed. Please try again.");
+                return;
+            }
+
+            navigate("/login", { replace: true });
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                const status = error.response?.status;
+                if (status === 400) {
+                    alert("Invalid registration data. Please check your input.");
+                } else if (status === 409) {
+                    alert("Username or email already exists. Please choose another.");
+                } else {
+                    alert("An error occurred during registration. Please try again later.");
+                }
+            } else {
+                alert("An unexpected error occurred. Please try again later.");
+            }
+        }
     }
 
     return (
