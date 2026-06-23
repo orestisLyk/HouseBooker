@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router"
 import Layout from "./shared/layout/Layout"
+import Homepage from "./pages/homepage"
+import HouseDetailsPage from "./pages/HouseDetailsPage"
 
 
 function App() {
@@ -8,7 +10,8 @@ function App() {
     <>
       <Routes>
         <Route element={<Layout/>}>
-          <Route path="/" element={<div>Home</div>}/>
+          <Route path="/" element={<Homepage />}/>
+          <Route path="/houses/:id" element={<HouseDetailsPage />}/>
         </Route>
       </Routes>
     </>
