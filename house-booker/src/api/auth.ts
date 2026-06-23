@@ -1,13 +1,13 @@
 import type { AuthUser, JwtPayload, LoginRequest, LoginResponse, RegisterRequest } from "../shared/types/auth";
 import api from "./axios";
 
-export const login = async (request: LoginRequest): Promise<LoginResponse> => {
+export const loginApi = async (request: LoginRequest): Promise<LoginResponse> => {
     const response = await api.post<LoginResponse>("/auth/login", request);
     return response.data;
 }
 
-export const register = async (request: RegisterRequest): Promise<LoginResponse> => {
-    const response = await api.post<LoginResponse>("/auth/register", request);
+export const registerApi = async (request: RegisterRequest): Promise<boolean> => {
+    const response = await api.post<boolean>("/auth/register", request);
     return response.data;
 }
 
