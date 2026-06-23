@@ -1,14 +1,16 @@
 import type { AuthUser, JwtPayload, LoginRequest } from "../shared/types/auth";
-import { login } from "../api/auth";
+import { loginApi } from "../api/auth";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     
 
-    const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const username = formData.get("username") as string;    
@@ -19,22 +21,9 @@ const LoginPage = () => {
             password
         };
 
-        const token = await login(credentials);
+        const token = await loginApi(credentials);
 
-        const decoded = jwtDecode(token.token) as JwtPayload;
-        
-        const user: AuthUser = {
-            id: parseInt(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]),
-            username: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-            email: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
-            role: decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
-            ownerId: decoded.OwnerId ? parseInt(decoded.OwnerId) : undefined,
-            renterId: decoded.RenterId ? parseInt(decoded.RenterId) : undefined
-        }
-
-        console.log("Logged in user:", user);
-
-        localStorage.setItem("token", token.token);
+        login(token.token);
 
         navigate("/", { replace: true });
     }
