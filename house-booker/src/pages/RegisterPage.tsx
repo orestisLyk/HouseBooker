@@ -2,8 +2,11 @@ import { useNavigate } from "react-router";
 import { registerApi } from "../api/auth";
 import { RegisterSchema, type RegisterRequest } from "../shared/types/auth";
 import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod/src/index.js";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type z from "zod";
+
+type RegisterFormInput = z.input<typeof RegisterSchema>;
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -12,9 +15,10 @@ const RegisterPage = () => {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<RegisterRequest>({
-        resolver: zodResolver(RegisterSchema),
+    } = useForm<RegisterFormInput, unknown, RegisterRequest>({
+        resolver: zodResolver(RegisterSchema)
     });
+    
 
     const onSubmit = async (data: RegisterRequest) => {
         try {
