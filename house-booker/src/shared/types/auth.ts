@@ -1,20 +1,27 @@
-export type LoginRequest = {
-    username: string;
-    password: string;
-}
+import z from "zod";
+
+export const LoginSchema = z.object({
+    username: z.string().min(1, "Username is required"),
+    password: z.string().min(1, "Password is required"),
+});
+
+export type LoginRequest = z.infer<typeof LoginSchema>;
 
 export type LoginResponse = {
     token: string;
 }
 
-export type RegisterRequest = {
-    username: string;
-    password: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    roleId: number;
-}
+export const RegisterSchema = z.object({
+    username: z.string().min(1, "Username is required"),
+    password: z.string().min(8, "Password must be at least 8 characters long"),
+    email: z.string().min(1, "Email is required").email("Invalid email address"),
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    roleId: z.coerce.number().int().min(1, "Role ID is required"),  
+});
+
+export type RegisterRequest = z.infer<typeof RegisterSchema>;
+
 
 export interface AuthUser {
     id: number;
