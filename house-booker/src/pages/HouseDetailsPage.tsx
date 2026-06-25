@@ -30,12 +30,16 @@ const HouseDetailsPage = () => {
             </div>
             <p className="text-gray-600 mb-2 mx-4">{houseReadOnly?.description}</p>
             <p className="text-gray-600 mb-2 mx-4">{houseReadOnly?.address}, {houseReadOnly?.region}</p>
-            <p className="text-gray-800 font-semibold mx-4">${houseReadOnly?.pricePerNight} per night</p>
+            <p className="text-gray-800 font-semibold mx-4">€{houseReadOnly?.pricePerNight} per night</p>
             {isAuthenticated && user?.role === "Owner" && user.ownerId === houseReadOnly?.ownerId && (
                 <>
                     <button className=" mx-4 bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark mt-4">Delete</button>
-                    <Link to={"/bookings/by-house/" + houseReadOnly?.id} className="mx-4 *:bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark mt-4 ml-2">View Bookings</Link>
+                    <Link to={"/houses/" + houseReadOnly?.id + "/createImage"} className="mx-4 bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark mt-4 ml-2">Add Image</Link>
+                    <Link to={"/bookings/by-house/" + houseReadOnly?.id} className="mx-4 bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark mt-4 ml-2">View Bookings</Link>
                 </>
+            )}
+            {isAuthenticated && user?.role === "Renter" && (
+                <Link to={"/houses/" + houseReadOnly?.id + "/book"} className="block w-sm mx-4 bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark mt-4">Book Now</Link>
             )}
         </>
     )
