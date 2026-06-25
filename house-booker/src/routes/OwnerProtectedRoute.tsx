@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router"
 import { useAuth } from "../hooks/useAuth";
 
-const OwnerProtectedRoot = () => {
+const OwnerProtectedRoute = () => {
     const { isAuthenticated, user } = useAuth();
 
     if (!isAuthenticated || user?.role !== "Owner") {
@@ -14,4 +14,4 @@ const OwnerProtectedRoot = () => {
         </>
     )
 }
-export default OwnerProtectedRoot;
+export default OwnerProtectedRoute;

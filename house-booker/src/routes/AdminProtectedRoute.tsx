@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 
-const AdminProtectedRoot = () => {
+const AdminProtectedRoute = () => {
     const { user, isAuthenticated } = useAuth();
 
     if (!isAuthenticated || user?.role !== "admin") {
@@ -14,4 +14,4 @@ const AdminProtectedRoot = () => {
         </>
     )
 }
-export default AdminProtectedRoot;
+export default AdminProtectedRoute;
