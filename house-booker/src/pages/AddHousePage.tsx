@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { createHouse } from "../api/housesApi";
 import { HouseCreateSchema, type HouseCreate } from "../shared/types/house";
 import { useForm } from "react-hook-form";

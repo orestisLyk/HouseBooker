@@ -33,7 +33,7 @@ const AddImagePage = () => {
 
         const onSubmit = async (data: any) => {
             try {
-                const url = await createImage(houseId, data.image);
+                await createImage(houseId, data.image);
                 navigate("/houses/" + houseId);
             } catch (error) {
                 console.error("Image upload failed:", error);
