@@ -21,7 +21,7 @@ const HouseCard = ({
                     <h2 className="text-xl font-semibold mb-2">{name}</h2>
                     <p className="text-gray-600 mb-2">{description}</p>
                     <p className="text-gray-600 mb-2">{address}, {region}</p>
-                    <p className="text-gray-800 font-semibold">${pricePerNight} per night</p>
+                    <p className="text-gray-800 font-semibold">€{pricePerNight} per night</p>
                 </div>
             </Link>
 
