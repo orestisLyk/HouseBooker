@@ -26,6 +26,9 @@ const Header = () => {
                     {isRenter && (
                         <>
                             <span className="text-white p-4">Welcome, {user?.username}</span>
+                            <Link to="/bookings/by-renter" className="text-white p-4">
+                                My Bookings
+                            </Link>
                             <button onClick={logout} className="text-white p-4">Logout</button>
                         </>
                     )}
