@@ -52,7 +52,7 @@ const AddHousePage = () => {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="pricePerNight" className="block text-gray-700 font-bold mb-2">Price Per Night</label>
-                    <input type="number" id="pricePerNight" {...register("pricePerNight")} className="w-full p-2 border rounded" />
+                    <input type="number" id="pricePerNight" {...register("pricePerNight", { valueAsNumber: true })} className="w-full p-2 border rounded" />
                     {errors.pricePerNight && <p className="text-red-500 text-sm mt-1">{errors.pricePerNight.message}</p>}
                 </div>
                 <button type="submit" className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
