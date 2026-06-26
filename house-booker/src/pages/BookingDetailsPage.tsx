@@ -74,7 +74,7 @@ const BookingDetailsPage = () => {
                     <p className="text-gray-600 mb-2">End Date: {new Date(booking.endDate).toLocaleDateString()}</p>
                 </div>
 
-                <Button label="Delete Booking" onClick={handleDelete} />
+                <Button label="Cancel Booking" onClick={handleDelete} />
                 </>
             ) : (
                 <p>Loading booking details...</p>
