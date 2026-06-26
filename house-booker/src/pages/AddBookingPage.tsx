@@ -39,8 +39,20 @@ const AddBookingPage = () => {
             renterId: user.renterId
         };
 
-        await createBooking(bookingData);
-        navigate("/houses/" + houseId);
+        try {
+            await createBooking(bookingData);
+            navigate("/bookings/by-renter");
+        } catch (error) {
+            const status = (error as any)?.response?.status;
+            if (status === 400) {
+                alert("Invalid booking data. Please check the dates and try again.Dates must be in the future");
+            } else {
+                console.error("Error creating booking:", error);
+                alert("Failed to create booking. Please try again.");
+            }
+        }
+
+        
     };
 
     return (
