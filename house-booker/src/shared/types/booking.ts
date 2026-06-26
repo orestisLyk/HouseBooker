@@ -10,6 +10,13 @@ export const BookingCreateSchema = z.object({
     }, {
         message: "End date must be after start date",
         path: ["endDate"]
+    }).refine((data) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return data.startDate > today && data.endDate > today;
+    }, {
+        message: "Dates must be in the future",
+        path: ["startDate", "endDate"]
     })
 });
 
