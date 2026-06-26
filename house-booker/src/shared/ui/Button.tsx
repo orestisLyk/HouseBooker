@@ -9,7 +9,7 @@ const Button = ({
 
     return (
         <>
-            <button className={"bg-accent rounded-lg hover:shadow-2xl" + addClasses} disabled={disabled} onClick={onClick}>
+            <button className={"bg-accent p-2 rounded-lg hover:shadow-2xl" + addClasses} disabled={disabled} onClick={onClick}>
                 {label}
             </button>
         </>
