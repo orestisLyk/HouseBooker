@@ -19,3 +19,7 @@ export const getBookingsByHouseId = async (houseId: number) => {
     const response = await api.get(`/bookings/by-house/${houseId}`);
     return response.data;
 }
+
+export const deleteBooking = async (bookingId: string) => {
+    await api.delete(`/bookings/${bookingId}`);
+}
