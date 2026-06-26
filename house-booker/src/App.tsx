@@ -14,6 +14,9 @@ import AddBookingPage from "./pages/AddBookingPage"
 import RenterBookingsPage from "./pages/RenterBookingsPage"
 import HouseBookingsPage from "./pages/HouseBookingsPage"
 import BookingDetailsPage from "./pages/BookingDetailsPage"
+import AdminProtectedRoute from "./routes/AdminProtectedRoute"
+import AdminPanelPage from "./pages/AdminPanelPage"
+import UsersManagementPage from "./pages/UsersManagementPage"
 
 
 function App() {
@@ -39,6 +42,10 @@ function App() {
               <Route path="/bookings/by-renter" element={<RenterBookingsPage />}/>
             </Route>
             <Route path="/bookings/:bookingId" element={<BookingDetailsPage />}/>
+            <Route element={<AdminProtectedRoute />}>
+              <Route path="/admin" element={<AdminPanelPage />}/>
+              <Route path="/admin/users" element={<UsersManagementPage />}/>
+            </Route>
           </Route>
         </Route>
       </Routes>
